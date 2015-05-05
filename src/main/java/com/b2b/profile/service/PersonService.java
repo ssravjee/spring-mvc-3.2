@@ -32,12 +32,7 @@ public class PersonService {
 	
 	public void remove(int id){
 		List<Person> persons = personRepository.getAllPerson();
-		for (Iterator iterator = persons.iterator(); iterator.hasNext();) {
-			Person o = (Person) iterator.next();
-			if(o.getId() == id){
-				persons.remove(o);
-			}
-		}
+		persons.remove(id);
 	}
 
 }

@@ -3,9 +3,14 @@
  */
 package com.b2b.profile.contoller;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,7 +29,7 @@ import com.b2b.profile.service.PersonService;
 public class ProfileController {
 
 	@Autowired
-	private final PersonService personService;
+	private PersonService personService;
 	
 	
 	@Autowired
@@ -46,10 +51,12 @@ public class ProfileController {
 	}
 	
 	 @RequestMapping(value="/remove", method = RequestMethod.GET)
-	 public String remove(@ModelAttribute ("profile") Person person, Model model){
+	 public String remove(@ModelAttribute ("profile") Person person, BindingResult result){
+		 if(result.hasErrors()) {
+			 return "redirect:list.html";
+		 }
 		 System.out.println("remove person id : " + person.getId());
-		 this.personService.remove(person.getId());
-		 model.addAttribute("profiles", this.personService.findAll());
+		 this.personService.remove(getIndexToRemoveElement(personService.findAll(),person.getId()));
 		 return "redirect:list.html";
 	 }
 	
@@ -60,4 +67,16 @@ public class ProfileController {
 		return "list";
 	}
 
+	public int getIndexToRemoveElement(List<Person> persons, int id){
+		int index = 0;
+		for (Iterator iterator = persons.iterator(); iterator.hasNext();) {
+			Person o = (Person) iterator.next();
+			if(o.getId() == id ){
+				System.out.println("list index : " + index);
+				break;
+			}
+			index++;
+		}
+		return index;
+	}
 }
