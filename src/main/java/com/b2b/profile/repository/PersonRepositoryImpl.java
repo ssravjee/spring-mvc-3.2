@@ -15,7 +15,7 @@ import com.b2b.profile.model.Person;
  *
  */
 @Repository
-public class PersonRepositoryImpl {
+public class PersonRepositoryImpl implements PersonRepository {
 	
 	private List<Person> persons = null;
 	
@@ -25,14 +25,23 @@ public class PersonRepositoryImpl {
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.b2b.profile.repository.PersonRepository#add(com.b2b.profile.model.Person)
+	 */
 	public void add(Person person) {
 		this.persons.add(person);
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.b2b.profile.repository.PersonRepository#getAllPerson()
+	 */
 	public List<Person> getAllPerson(){
 		return this.persons;
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.b2b.profile.repository.PersonRepository#remove(com.b2b.profile.model.Person)
+	 */
 	public void remove(Person person) {
 		this.persons.remove(person);
 	}
