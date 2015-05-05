@@ -3,7 +3,6 @@
  */
 package com.b2b.profile.contoller;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -56,7 +55,7 @@ public class ProfileController {
 			 return "redirect:list.html";
 		 }
 		 System.out.println("remove person id : " + person.getId());
-		 this.personService.remove(getIndexToRemoveElement(personService.findAll(),person.getId()));
+		 this.personService.remove(getIndexToRemoveElement(personService.findAll(), person.getId()));
 		 return "redirect:list.html";
 	 }
 	
@@ -67,7 +66,7 @@ public class ProfileController {
 		return "list";
 	}
 
-	public int getIndexToRemoveElement(List<Person> persons, int id){
+	public int getIndexToRemoveElement(List<Person> persons, long id){
 		int index = 0;
 		for (Iterator iterator = persons.iterator(); iterator.hasNext();) {
 			Person o = (Person) iterator.next();
