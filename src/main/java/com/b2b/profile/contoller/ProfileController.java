@@ -3,8 +3,7 @@
  */
 package com.b2b.profile.contoller;
 
-import java.util.Iterator;
-import java.util.List;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -44,8 +43,15 @@ public class ProfileController {
 	}
 	
 	@RequestMapping(value="/create", method = RequestMethod.POST)
-	public String updateProfile(@ModelAttribute ("profile") Person person) {
-		this.personService.add(person);
+	public String updateProfile(@Valid @ModelAttribute ("profile") Person person, BindingResult result) {
+		System.out.println("updateProfile called.");
+
+		if (result.hasErrors()) {
+			System.out.println("errors");
+			return "redirect:list.html";
+		}
+		System.out.println("No errors");
+		this.personService.save(person);
 		return "redirect:list.html";
 	}
 	
@@ -55,27 +61,27 @@ public class ProfileController {
 			 return "redirect:list.html";
 		 }
 		 System.out.println("remove person id : " + person.getId());
-		 this.personService.remove(getIndexToRemoveElement(personService.findAll(), person.getId()));
+		 //this.personService.remove(getIndexToRemoveElement(personService.findAll(), person.getId()));
 		 return "redirect:list.html";
 	 }
 	
-	@RequestMapping(value ="/list", method = RequestMethod.GET)
-	public String list(Model model) {
-		System.out.println("list method");
-		model.addAttribute("profiles", personService.findAll());
-		return "list";
-	}
+//	@RequestMapping(value ="/list", method = RequestMethod.GET)
+//	public String list(Model model) {
+//		System.out.println("list method");
+//		model.addAttribute("profiles", personService.findAll());
+//		return "list";
+//	}
 
-	public int getIndexToRemoveElement(List<Person> persons, long id){
-		int index = 0;
-		for (Iterator iterator = persons.iterator(); iterator.hasNext();) {
-			Person o = (Person) iterator.next();
-			if(o.getId() == id ){
-				System.out.println("list index : " + index);
-				break;
-			}
-			index++;
-		}
-		return index;
-	}
+//	public int getIndexToRemoveElement(List<Person> persons, long id){
+//		int index = 0;
+//		for (Iterator iterator = persons.iterator(); iterator.hasNext();) {
+//			Person o = (Person) iterator.next();
+//			if(o.getId() == id ){
+//				System.out.println("list index : " + index);
+//				break;
+//			}
+//			index++;
+//		}
+//		return index;
+//	}
 }

@@ -10,12 +10,10 @@
 
 	<context:annotation-config />
 
-<!--
 	<context:component-scan base-package="com.b2b.profile"/>
 	
 	<jpa:repositories base-package="com.b2b.profile.repository" />
 
--->	
 	<bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
 	
 	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
