@@ -26,40 +26,41 @@ public class Person {
 	@Id
     @Column(name="id")
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private int id = 1;
+    private Long id = 1L;
      
-    public int getId() {
-		return id;
+	private String name = "Shahjahan";
+
+	@Range(min = 16, max = 90)
+	private int age = 30;
+
+	
+	public int getAge() {
+		return age;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public Long getId() {
+		return id;
 	}
 
 	public String getName() {
 		return name;
 	}
 
+	public void setAge(int age) {
+		this.age = age;
+	}
+	
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
 
-	private String name = "Shahjahan";
-
 	@Override
     public String toString(){
-        return "id=" + id + ", name=" + name;
+        return "id=" + id + ", name=" + name + ", age=" + age;
     }
-	
-	@Range(min = 16, max = 90)
-	private int age = 30;
-
-	public int getAge() {
-		return age;
-	}
-
-	public void setAge(int age) {
-		this.age = age;
-	}
 	
 }

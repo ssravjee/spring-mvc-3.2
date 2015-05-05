@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.b2b.profile;
+package com.b2b.profile.repository;
 
 import java.util.ArrayList;
 import java.util.List;
